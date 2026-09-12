@@ -1084,88 +1084,105 @@
       let activeSerial = null;
 
       // ─── TFT MENU DATA W/ HELP DESCRIPTIONS ───
+      const SVG_PROPS = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"';
       const menuData = {
         name: 'Main Menu',
         items: [
           {
-            name: 'Recon',
+            name: 'Recon', icon: `<svg ${SVG_PROPS}><path d="M12 22a10 10 0 0 0 0-20m-5 10a5 5 0 0 1 10 0m-3 0a2 2 0 1 0-4 0"/></svg>`,
             items: [
-              { name: 'Start WiFi', cmd: 'recon wifi', desc: 'Starts the background WiFi reconnaissance mode.' },
-              { name: 'Start BLE', cmd: 'recon ble', desc: 'Starts the background BLE reconnaissance mode.' },
-              { name: 'Stop Recon', cmd: 'recon stop', desc: 'Stops any active reconnaissance mode.' }
+              { name: 'Start WiFi', cmd: 'recon wifi', desc: 'Starts the background WiFi reconnaissance mode.', icon: `<svg ${SVG_PROPS}><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>` },
+              { name: 'Start BLE', cmd: 'recon ble', desc: 'Starts the background BLE reconnaissance mode.', icon: `<svg ${SVG_PROPS}><path d="m6.5 6.5 11 11L12 23V1l5.5 5.5-11 11"/></svg>` },
+              { name: 'Stop Recon', cmd: 'recon stop', desc: 'Stops any active reconnaissance mode.', icon: `<svg ${SVG_PROPS}><rect x="6" y="6" width="12" height="12" rx="2"/></svg>` }
             ]
           },
           {
-            name: 'WiFi',
+            name: 'WiFi', icon: `<svg ${SVG_PROPS}><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>`,
             items: [
               {
-                name: 'Sniffers',
+                name: 'Sniffers', icon: `<svg ${SVG_PROPS}><path d="M2 21a8 8 0 0 1 10.43-7.73"/><circle cx="18" cy="18" r="3"/><path d="m21 21-1.9-1.9"/></svg>`,
                 items: [
-                  { name: 'Probe Request Sniff', cmd: 'sniffprobe', desc: 'Listens for Probe Request frames sent by client devices searching for known networks.' },
-                  { name: 'Beacon Sniff', cmd: 'sniffbeacon', desc: 'Listens for Beacon frames to populate the list of nearby Access Points. Does not sniff clients.' },
-                  { name: 'Deauth Sniff', cmd: 'sniffdeauth', desc: 'Monitors the area for Deauthentication frames, which usually indicate a network attack in progress.' },
-                  { name: 'Raw Capture', cmd: 'sniffraw', desc: 'Captures raw WiFi packet data and saves it to the SD card in PCAP format.' },
-                  { name: 'Detect Pwnagotchi', cmd: 'sniffpwn', desc: 'Listens for Pwnagotchi communication frames.' },
-                  { name: 'EAPOL/PMKID Scan', cmd: 'sniffpmkid', desc: 'Actively requests associations to capture PMKID hashes from WPA2 APs, useful for offline cracking.' },
-                  { name: 'SAE Commit', cmd: 'sniffsae', desc: 'Sniffs WPA3 SAE commit frames.' }
+                  { name: 'Probe Request Sniff', cmd: 'sniffprobe', desc: 'Listens for Probe Request frames sent by client devices searching for known networks.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>` },
+                  { name: 'Beacon Sniff', cmd: 'sniffbeacon', desc: 'Listens for Beacon frames to populate the list of nearby Access Points. Does not sniff clients.', icon: `<svg ${SVG_PROPS}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>` },
+                  { name: 'Deauth Sniff', cmd: 'sniffdeauth', desc: 'Monitors the area for Deauthentication frames, which usually indicate a network attack in progress.', icon: `<svg ${SVG_PROPS}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>` },
+                  { name: 'Raw Capture', cmd: 'sniffraw', desc: 'Captures raw WiFi packet data and saves it to the SD card in PCAP format.', icon: `<svg ${SVG_PROPS}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>` },
+                  { name: 'Detect Pwnagotchi', cmd: 'sniffpwn', desc: 'Listens for Pwnagotchi communication frames.', icon: `<svg ${SVG_PROPS}><path d="M12 2a2 2 0 0 0-2 2c0 1.1.9 2 2 2h0c1.1 0 2-.9 2-2a2 2 0 0 0-2-2Z"/><path d="M10 22v-6H6l3-6v-3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3l3 6h-4v6"/></svg>` },
+                  { name: 'EAPOL/PMKID Scan', cmd: 'sniffpmkid', desc: 'Actively requests associations to capture PMKID hashes from WPA2 APs, useful for offline cracking.', icon: `<svg ${SVG_PROPS}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>` },
+                  { name: 'SAE Commit', cmd: 'sniffsae', desc: 'Sniffs WPA3 SAE commit frames.', icon: `<svg ${SVG_PROPS}><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7l8.7 5 8.7-5"/><path d="M12 22V12"/></svg>` },
+                  { name: 'Detect Pineapple', cmd: 'sniffpinescan', desc: 'Scans for WiFi Pineapple signatures.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>` },
+                  { name: 'Detect MultiSSID', cmd: 'sniffmultissid', desc: 'Scans for Multiple SSID attack signatures.', icon: `<svg ${SVG_PROPS}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>` }
                 ]
               },
               {
-                name: 'Scanners',
+                name: 'Scanners', icon: `<svg ${SVG_PROPS}><path d="M2 12a10 10 0 0 1 20 0m-10-5v5l3 3"/></svg>`,
                 items: [
-                  { name: 'Scan AP/STA', cmd: 'scanall', desc: 'Iterates through all 2.4GHz WiFi channels and passively sniffs for both Access Points (APs) and Client Stations.' }
+                  { name: 'Scan AP/STA', cmd: 'scanall', desc: 'Iterates through all 2.4GHz WiFi channels and passively sniffs for both Access Points (APs) and Client Stations.', icon: `<svg ${SVG_PROPS}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>` }
                 ]
               },
               {
-                name: 'Attacks',
+                name: 'Attacks', icon: `<svg ${SVG_PROPS}><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
                 items: [
-                  { name: 'Beacon Spam List', cmd: 'attack -t beacon -l', desc: 'Broadcasts fake Access Point beacons using the SSIDs saved in your saved list.' },
-                  { name: 'Beacon Spam Random', cmd: 'attack -t beacon -r', desc: 'Floods the local area with random, randomly-named fake Access Point beacons.' },
-                  { name: 'Rick Roll Beacon', cmd: 'attack -t rickroll', desc: 'Broadcasts fake Access Points whose names spell out the lyrics to Never Gonna Give You Up.' },
-                  { name: 'Probe Req Flood', cmd: 'attack -t probe', desc: 'Floods the area with Probe Requests for random networks.' },
-                  { name: 'Deauth Flood', cmd: 'attack -t deauth', desc: 'Sends continuous Deauthentication frames to targeted clients, disconnecting them from their AP. Warning: Strictly for authorized auditing.' }
+                  { name: 'Beacon Spam List', cmd: 'attack -t beacon -l', desc: 'Broadcasts fake Access Point beacons using the SSIDs saved in your saved list.', icon: `<svg ${SVG_PROPS}><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>` },
+                  { name: 'Beacon Spam Random', cmd: 'attack -t beacon -r', desc: 'Floods the local area with random, randomly-named fake Access Point beacons.', icon: `<svg ${SVG_PROPS}><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>` },
+                  { name: 'AP Clone Spam', cmd: 'attack -t beacon -a', desc: 'Clones detected APs and spams them to create confusion.', icon: `<svg ${SVG_PROPS}><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>` },
+                  { name: 'Funny SSID Beacon', cmd: 'attack -t funny', desc: 'Broadcasts fake Access Points with humorous names.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>` },
+                  { name: 'Rick Roll Beacon', cmd: 'attack -t rickroll', desc: 'Broadcasts fake Access Points whose names spell out the lyrics to Never Gonna Give You Up.', icon: `<svg ${SVG_PROPS}><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>` },
+                  { name: 'Probe Req Flood', cmd: 'attack -t probe', desc: 'Floods the area with Probe Requests for random networks.', icon: `<svg ${SVG_PROPS}><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>` },
+                  { name: 'Deauth Flood', cmd: 'attack -t deauth', desc: 'Sends continuous Deauthentication frames to targeted clients, disconnecting them from their AP.', icon: `<svg ${SVG_PROPS}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>` },
+                  { name: 'Badmsg Attack', cmd: 'attack -t badmsg', desc: 'Broadcasts malformed packets to cause targeted AP instability.', icon: `<svg ${SVG_PROPS}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="12" y1="7" x2="12" y2="11"/><line x1="12" y1="15" x2="12.01" y2="15"/></svg>` },
+                  { name: 'SAE Commit Attack', cmd: 'attack -t sae', desc: 'Floods WPA3 APs with SAE commit frames to cause resource exhaustion.', icon: `<svg ${SVG_PROPS}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>` },
+                  { name: 'CSA Attack', cmd: 'attack -t csa', desc: 'Sends fake Channel Switch Announcements to disrupt connections.', icon: `<svg ${SVG_PROPS}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>` },
+                  { name: 'Quiet Attack', cmd: 'attack -t quiet', desc: 'Exploits the IEEE 802.11h Quiet period mechanism to mute channels.', icon: `<svg ${SVG_PROPS}><path d="M2 12h20"/><path d="M2 12a10 10 0 1 1 20 0 10 10 0 1 1-20 0z"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>` }
                 ]
               },
               {
-                name: 'General',
+                name: 'General', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
                 items: [
-                  { name: 'Stop Scan', cmd: 'stopscan', desc: 'Immediately halts the current scanning or attacking process.' },
-                  { name: 'Clear APs', cmd: 'clearlist -a', desc: 'Clears the list of discovered Access Points from memory.' },
-                  { name: 'Clear Stations', cmd: 'clearlist -s', desc: 'Clears the list of discovered Client Stations from memory.' }
+                  { name: 'Stop Scan', cmd: 'stopscan', desc: 'Immediately halts the current scanning or attacking process.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>` },
+                  { name: 'Clear APs', cmd: 'clearlist -a', desc: 'Clears the list of discovered Access Points from memory.', icon: `<svg ${SVG_PROPS}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>` },
+                  { name: 'Clear Stations', cmd: 'clearlist -s', desc: 'Clears the list of discovered Client Stations from memory.', icon: `<svg ${SVG_PROPS}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>` }
                 ]
               }
             ]
           },
           {
-            name: 'Bluetooth',
+            name: 'Bluetooth', icon: `<svg ${SVG_PROPS}><path d="m6.5 6.5 11 11L12 23V1l5.5 5.5-11 11"/></svg>`,
             items: [
               {
-                name: 'Bluetooth Sniffer',
+                name: 'Bluetooth Sniffer', icon: `<svg ${SVG_PROPS}><path d="M2 21a8 8 0 0 1 10.43-7.73"/><circle cx="18" cy="18" r="3"/><path d="m21 21-1.9-1.9"/></svg>`,
                 items: [
-                  { name: 'Bluetooth Sniff', cmd: 'sniffbt', desc: 'Scans the surrounding area for active Bluetooth and BLE devices and records their MAC addresses.' },
-                  { name: 'Detect Card Skimmers', cmd: 'sniffskim', desc: 'Skims for BLE data and reads nearby card/tag info.' }
+                  { name: 'Bluetooth Sniff', cmd: 'sniffbt', desc: 'Scans the surrounding area for active Bluetooth and BLE devices and records their MAC addresses.', icon: `<svg ${SVG_PROPS}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>` },
+                  { name: 'Detect Card Skimmers', cmd: 'sniffskim', desc: 'Skims for BLE data and reads nearby card/tag info.', icon: `<svg ${SVG_PROPS}><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>` }
                 ]
               },
               {
-                name: 'Bluetooth Attacks',
+                name: 'Bluetooth Attacks', icon: `<svg ${SVG_PROPS}><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
                 items: [
-                  { name: 'Spam All', cmd: 'blespam -t all', desc: 'Floods nearby BLE-enabled devices (iOS, Android, Windows) with continuous pairing popups.' },
-                  { name: 'Sour Apple', cmd: 'blespam -t sourapple', desc: 'Specifically targets Apple devices (iPhones, iPads, AirPods) with BLE pairing popups causing disruption.' },
-                  { name: 'Google Spam', cmd: 'blespam -t google', desc: 'Specifically targets Android devices using Google Fast Pair.' }
+                  { name: 'Spam All', cmd: 'blespam -t all', desc: 'Floods nearby BLE-enabled devices (iOS, Android, Windows) with continuous pairing popups.', icon: `<svg ${SVG_PROPS}><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>` },
+                  { name: 'Sour Apple', cmd: 'blespam -t sourapple', desc: 'Specifically targets Apple devices (iPhones, iPads, AirPods) with BLE pairing popups causing disruption.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>` },
+                  { name: 'Google Spam', cmd: 'blespam -t google', desc: 'Specifically targets Android devices using Google Fast Pair.', icon: `<svg ${SVG_PROPS}><path d="M2 12h20M12 2v20"/></svg>` }
                 ]
               }
             ]
           },
           {
-            name: 'Device',
+            name: 'GPS', icon: `<svg ${SVG_PROPS}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
             items: [
-              { name: 'Device Info', cmd: 'status', desc: 'Requests the current system status, memory usage, and target counts from the firmware.' },
-              { name: 'Channel', cmd: 'channel', desc: 'Prints the current WiFi channel the radio is tuned to.' },
-              { name: 'Help', cmd: 'help', desc: 'Prints the standard firmware help menu and list of all available commands to the terminal.' }
+              { name: 'Start NMEA Stream', cmd: 'nmea', desc: 'Starts reading and streaming NMEA data from the GPS module.', icon: `<svg ${SVG_PROPS}><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 8 8"/><path d="m16 8-8-8"/><path d="m16.71 13.88-3.59-3.59a2 2 0 1 0-2.83 2.83l3.59 3.59a2 2 0 1 0 2.83-2.83z"/></svg>` },
+              { name: 'Show GPS Data', cmd: 'gpsdata', desc: 'Displays the most recently parsed GPS information (Coordinates, Satellites, Fix).', icon: `<svg ${SVG_PROPS}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>` },
+              { name: 'Start Tracker', cmd: 'gpstracker -c start', desc: 'Starts the GPS background tracking service.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>` },
+              { name: 'Stop Tracker', cmd: 'gpstracker -c stop', desc: 'Stops the GPS background tracking service.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>` }
             ]
           },
           {
-            name: 'Reboot',
+            name: 'Device', icon: `<svg ${SVG_PROPS}><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>`,
+            items: [
+              { name: 'Device Info', cmd: 'status', desc: 'Requests the current system status, memory usage, and target counts from the firmware.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>` },
+              { name: 'Help', cmd: 'help', desc: 'Prints the standard firmware help menu and list of all available commands to the terminal.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>` }
+            ]
+          },
+          {
+            name: 'Reboot', icon: `<svg ${SVG_PROPS}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>`,
             cmd: 'reboot'
           }
         ]
@@ -1195,13 +1212,13 @@
                            <span class="item-title">${item.name}</span>
                            ${item.desc ? `<span class="item-desc">${item.desc}</span>` : ''}
                          </div>
-                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>`;
+                         ${item.icon || `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>`}`;
             div.addEventListener('click', () => {
               sendCommand(item.cmd);
             });
           } else if (item.items) {
             // It's a folder -> goes to sub-menu
-            div.innerHTML = `<span class="item-title">${item.name}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>`;
+            div.innerHTML = `<span class="item-title">${item.name}</span>${item.icon || `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`}`;
             div.addEventListener('click', () => {
               menuStack.push(item);
               renderMenu();
