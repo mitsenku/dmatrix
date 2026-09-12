@@ -1028,8 +1028,11 @@
               if (done) break;
               if (value && this.onData) this.onData(dec.decode(value));
             }
-          } catch (e) { } finally {
-            this.reader.releaseLock();
+          } catch (e) {
+             console.error("Read error:", e);
+             this.disconnect();
+          } finally {
+            try { if (this.reader) this.reader.releaseLock(); } catch(e){}
           }
         }
         async write(text) {
@@ -1037,9 +1040,9 @@
           await this.writer.write(new TextEncoder().encode(text));
         }
         async disconnect() {
-          if (this.reader) { await this.reader.cancel(); this.reader.releaseLock(); }
-          if (this.writer) { await this.writer.close(); this.writer.releaseLock(); }
-          if (this.port) await this.port.close();
+          try { if (this.reader) { await this.reader.cancel(); } } catch (e) {}
+          try { if (this.writer) { this.writer.releaseLock(); } } catch (e) {}
+          try { if (this.port) { await this.port.close(); this.port = null; } } catch (e) {}
         }
       }
 
@@ -1079,7 +1082,11 @@
           if (!this.device || !this.device.opened) return;
           await this.device.transferOut(this.epOut, new TextEncoder().encode(text));
         }
-        async disconnect() { this.reading = false; if (this.device && this.device.opened) await this.device.close(); this.device = null; }
+        async disconnect() {
+          this.reading = false;
+          try { if (this.device && this.device.opened) await this.device.close(); } catch(e) {}
+          this.device = null;
+        }
       }
 
       let activeSerial = null;
