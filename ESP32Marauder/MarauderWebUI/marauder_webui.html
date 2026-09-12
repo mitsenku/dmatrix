@@ -1301,7 +1301,7 @@
           }
 
           // Prevent the background polling command from spamming the terminal
-          if (line === 'status' || line === '#status') continue;
+          if (/^#?(status|list -[acb])$/.test(line)) continue;
 
           // Filter out original Marauder ASCII art (lines containing only ASCII art characters)
           if (line.length > 0 && /^[ \/_|\\.'-]+$/.test(line)) { continue; }
@@ -1396,10 +1396,29 @@
         }
       }
 
+      let isScanning = false;
+      let targetPollInterval = null;
+
       async function sendCommand(cmd, silent) {
         if (!isConnected || !activeSerial) return;
+
+        // Auto-refresh fallback for older firmwares that don't support JSON status
+        if (!silent) {
+          if (cmd === 'stopscan') {
+            isScanning = false;
+            if (targetPollInterval) clearInterval(targetPollInterval);
+          } else if (cmd.includes('scan') || cmd.includes('sniff')) {
+            isScanning = true;
+            if (targetPollInterval) clearInterval(targetPollInterval);
+            targetPollInterval = setInterval(() => {
+              if (isScanning && isConnected) refreshTargets(true);
+            }, 8000);
+          }
+        }
+
         try {
-          await activeSerial.write(cmd + '\n');
+          // Send carriage return as well for broader firmware compatibility
+          await activeSerial.write(cmd + '\r\n');
           if (!silent) { appendLine(cmd, 'cmd'); commandHistory.unshift(cmd); if (commandHistory.length > 50) commandHistory.pop(); historyIndex = -1; }
         } catch (e) { appendLine('SEND ERROR: ' + e.message, 'error'); }
       }
