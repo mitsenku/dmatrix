@@ -108,7 +108,7 @@
       flex-direction: column;
       gap: 12px;
       min-width: 0;
-      height: 520px;
+      height: 460px;
     }
 
     /* ── CONNECTION BAR ── */
@@ -230,14 +230,15 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      flex-shrink: 0;
+      flex: 1;
+      flex-basis: 0;
     }
 
     .tft-menu-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
+      gap: 8px;
+      padding: 8px 12px;
       background: var(--black);
       color: var(--white);
       border-bottom: var(--border);
@@ -260,7 +261,7 @@
     }
 
     .tft-menu-title {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -269,10 +270,10 @@
     }
 
     .tft-menu-body {
-      padding: 12px;
+      padding: 4px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
       overflow-y: auto;
       background: var(--bg);
     }
@@ -281,7 +282,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
+      padding: 4px 12px;
       background: var(--white);
       border: var(--border-thin);
       cursor: pointer;
@@ -298,7 +299,7 @@
 
     .tft-menu-item .item-title {
       font-family: var(--mono);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 800;
       letter-spacing: 1px;
     }
@@ -306,7 +307,7 @@
     .tft-menu-item-content {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
       flex: 1;
       padding-right: 16px;
     }
@@ -333,7 +334,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 520px;
+      height: 460px;
     }
 
     .terminal-header {
@@ -442,26 +443,27 @@
 
     /* ── TARGETS ── */
     .targets-panel {
-      padding: 16px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      flex-shrink: 0;
+      flex: 1;
+      flex-basis: 0;
     }
 
     .targets-panel>.panel-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 2px;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .accordion {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       border: var(--border-thin);
       background: var(--white);
       box-shadow: var(--shadow-sm);
@@ -471,10 +473,10 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 10px 16px;
+      padding: 8px 12px;
       font-family: var(--mono);
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       cursor: pointer;
       background: #eee;
     }
