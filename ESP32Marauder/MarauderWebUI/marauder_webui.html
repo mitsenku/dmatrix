@@ -279,7 +279,7 @@
       flex-direction: column;
       gap: 2px;
       overflow-y: auto;
-      background: var(--bg);
+      background: var(--white);
       flex: 1;
     }
 
@@ -292,7 +292,7 @@
       border: var(--border-thin);
       cursor: pointer;
       transition: background 0.1s;
-      flex: 1;
+      flex: 0 0 calc((100% - 16px) / 5);
     }
 
     .tft-menu-item:hover {
@@ -703,6 +703,7 @@
 
       .tft-menu-item {
         padding: 8px;
+        flex: 0 0 calc((100% - 24px) / 5);
       }
 
       .tft-menu-item svg {
