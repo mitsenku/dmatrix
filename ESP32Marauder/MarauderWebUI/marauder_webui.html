@@ -1096,7 +1096,7 @@
         name: 'Main Menu',
         items: [
           {
-            name: 'Recon', icon: `<svg ${SVG_PROPS}><path d="M12 22a10 10 0 0 0 0-20m-5 10a5 5 0 0 1 10 0m-3 0a2 2 0 1 0-4 0"/></svg>`,
+            name: 'WiFi', icon: `<svg ${SVG_PROPS}><path d="M12 22a10 10 0 0 0 0-20m-5 10a5 5 0 0 1 10 0m-3 0a2 2 0 1 0-4 0"/></svg>`,
             items: [
               { name: 'Start WiFi', cmd: 'recon wifi', desc: 'Starts the background WiFi reconnaissance mode.', icon: `<svg ${SVG_PROPS}><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>` },
               { name: 'Start BLE', cmd: 'recon ble', desc: 'Starts the background BLE reconnaissance mode.', icon: `<svg ${SVG_PROPS}><path d="m6.5 6.5 11 11L12 23V1l5.5 5.5-11 11"/></svg>` },
@@ -1162,6 +1162,16 @@
               {
                 name: 'General', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
                 items: [
+                  { name: 'List APs', cmd: 'list -a', desc: 'Lists all detected Access Points.', icon: `<svg ${SVG_PROPS}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>` },
+                  { name: 'List Stations', cmd: 'list -c', desc: 'Lists all detected Client Stations.', icon: `<svg ${SVG_PROPS}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>` },
+                  { name: 'Select AP', cmd: 'select', prompt: [{msg: 'Enter AP Index (e.g. 0):', flag: '-a'}], desc: 'Select an Access Point by its index for targeted attacks.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>` },
+                  { name: 'Select Station', cmd: 'select', prompt: [{msg: 'Enter Station Index (e.g. 0):', flag: '-s'}], desc: 'Select a Station by its index for targeted attacks.', icon: `<svg ${SVG_PROPS}><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>` },
+                  { name: 'AP Info', cmd: 'info', prompt: [{msg: 'Enter AP Index (e.g. 0):', flag: '-a'}], desc: 'Display detailed information about a selected AP.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>` },
+                  { name: 'Join WiFi', cmd: 'join', prompt: [{msg: 'Enter AP Index:', flag: '-a'}, {msg: 'Enter Password:', flag: '-p'}], desc: 'Join a selected WiFi network.', icon: `<svg ${SVG_PROPS}><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>` },
+                  { name: 'Add SSID', cmd: 'ssid -a', prompt: [{msg: 'Enter SSID Name:', flag: '-n'}], desc: 'Add a custom SSID to the broadcast list.', icon: `<svg ${SVG_PROPS}><path d="M5 12h14"/><path d="M12 5v14"/></svg>` },
+                  { name: 'Generate SSIDs', cmd: 'ssid -a -g', prompt: [{msg: 'Enter number of SSIDs to generate (e.g. 50):'}], desc: 'Randomly generate a list of SSIDs.', icon: `<svg ${SVG_PROPS}><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>` },
+                  { name: 'Clone AP MAC', cmd: 'cloneapmac', prompt: [{msg: 'Enter AP Index:', flag: '-a'}], desc: 'Clone the MAC address of a selected AP.', icon: `<svg ${SVG_PROPS}><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>` },
+                  { name: 'Clone Station MAC', cmd: 'clonestamac', prompt: [{msg: 'Enter Station Index:', flag: '-s'}], desc: 'Clone the MAC address of a selected Station.', icon: `<svg ${SVG_PROPS}><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>` },
                   { name: 'Stop Scan', cmd: 'stopscan', desc: 'Immediately halts the current scanning or attacking process.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>` },
                   { name: 'Clear APs', cmd: 'clearlist -a', desc: 'Clears the list of discovered Access Points from memory.', icon: `<svg ${SVG_PROPS}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>` },
                   { name: 'Clear Stations', cmd: 'clearlist -s', desc: 'Clears the list of discovered Client Stations from memory.', icon: `<svg ${SVG_PROPS}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>` },
@@ -1210,7 +1220,11 @@
             name: 'Device', icon: `<svg ${SVG_PROPS}><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>`,
             items: [
               { name: 'Device Info', cmd: 'status', desc: 'Requests the current system status, memory usage, and target counts from the firmware.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>` },
-              { name: 'Help', cmd: 'help', desc: 'Prints the standard firmware help menu and list of all available commands to the terminal.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>` }
+              { name: 'Help', cmd: 'help', desc: 'Prints the standard firmware help menu and list of all available commands to the terminal.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>` },
+              { name: 'Save Settings', cmd: 'save', desc: 'Save all current settings to SD Card.', icon: `<svg ${SVG_PROPS}><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>` },
+              { name: 'Load Settings', cmd: 'load', desc: 'Load settings from SD Card.', icon: `<svg ${SVG_PROPS}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>` },
+              { name: 'Set LED Color', cmd: 'led', prompt: [{msg: 'Enter Hex Color (e.g. #FF0000):', flag: '-s'}], desc: 'Set the NeoPixel LED color.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>` },
+              { name: 'Set Brightness', cmd: 'brightness', prompt: [{msg: 'Enter Brightness (0-9):', flag: '-s'}], desc: 'Set the screen brightness.', icon: `<svg ${SVG_PROPS}><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>` }
             ]
           },
           {
@@ -1246,7 +1260,17 @@
                          </div>
                          ${item.icon || `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>`}`;
             div.addEventListener('click', () => {
-              sendCommand(item.cmd);
+              let finalCmd = item.cmd;
+              if (item.prompt) {
+                for (let p of item.prompt) {
+                  let result = prompt(p.msg);
+                  if (result === null) return; // User cancelled
+                  if (result.trim() !== '') {
+                    finalCmd += ` ${p.flag ? p.flag + ' ' : ''}${result.trim()}`;
+                  }
+                }
+              }
+              sendCommand(finalCmd);
             });
           } else if (item.items) {
             // It's a folder -> goes to sub-menu
