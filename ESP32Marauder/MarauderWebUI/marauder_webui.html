@@ -103,6 +103,14 @@
       align-items: start;
     }
 
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-width: 0;
+      height: 600px;
+    }
+
     /* ── CONNECTION BAR ── */
     .conn-bar {
       display: flex;
@@ -229,7 +237,8 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      max-height: 420px;
+      max-height: 250px;
+      flex-shrink: 0;
     }
 
     .tft-menu-header {
@@ -442,6 +451,10 @@
     /* ── TARGETS ── */
     .targets-panel {
       padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
     }
 
     .targets-panel>.panel-title {
@@ -639,6 +652,11 @@
         align-items: stretch;
       }
 
+      .left-column {
+        height: auto;
+        gap: 8px;
+      }
+
       .tft-menu-panel {
         display: flex;
         flex-direction: column;
@@ -811,7 +829,7 @@
     <!-- MAIN ROW: MENU & TERMINAL -->
     <div class="main-content-row">
       <!-- LEFT COLUMN -->
-      <div class="left-column" style="display: flex; flex-direction: column; gap: 24px; min-width: 0;">
+      <div class="left-column">
         <!-- TFT MENU WITH HELP DESCRIPTIONS -->
         <div class="tft-menu-panel card" id="tft-menu-container">
         <div class="tft-menu-header">
