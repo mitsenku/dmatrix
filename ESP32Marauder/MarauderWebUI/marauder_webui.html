@@ -138,14 +138,7 @@
       letter-spacing: 2px;
     }
 
-    .conn-bar .version {
-      padding: 4px 10px;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      font-weight: 700;
-      background: var(--black);
-      color: var(--white);
-    }
+
 
     .conn-bar .spacer {
       flex: 1;
@@ -602,7 +595,6 @@
         font-size: 1rem;
       }
 
-      .conn-bar .version,
       .baud-select,
       .status-text {
         display: none;
@@ -784,7 +776,6 @@
         </svg>
         <h1>dmatrix</h1>
       </div>
-      <span class="version" id="version-badge">--</span>
       <div class="spacer"></div>
       <select class="baud-select" id="baud-select">
         <option value="115200" selected>115200 Baud</option>
@@ -935,7 +926,7 @@
       'use strict';
       const $ = (s) => document.querySelector(s);
       const connectBtn = $('#connect-btn'), statusDot = $('#status-dot'), statusText = $('#status-text');
-      const baudSelect = $('#baud-select'), versionBadge = $('#version-badge');
+      const baudSelect = $('#baud-select');
       const terminalBody = $('#terminal-body'), cmdInput = $('#cmd-input');
       const sendBtn = $('#send-btn'), clearBtn = $('#clear-btn'), stopBtn = $('#stop-btn');
       const lineCountEl = $('#line-count'), refreshBtn = $('#refresh-targets-btn');
@@ -1214,7 +1205,7 @@
           if (line === 'status' || line === '#status') continue;
 
           if (line.includes('ESP32 dmatrix') || line.includes('ESP32 Marauder')) { appendLine(line, 'info'); continue; }
-          if (line.match(/^\s*v\d+\.\d+/)) { versionBadge.textContent = line.trim(); appendLine(line, 'info'); continue; }
+          if (line.match(/^\s*v\d+\.\d+/)) { appendLine(line, 'info'); continue; }
 
           // Parse AP List: [0][CH:1] MyWiFiNetwork -50
           let apMatch = line.match(/^\[(\d+)\]\[CH:(\d+)\]\s+(.+?)\s+(-\d+)(?:\s+\(selected\))?$/);
@@ -1273,7 +1264,7 @@
         if (d.stas !== undefined) { $('#val-sta').textContent = d.stas; $('#acc-sta-count').textContent = d.stas; }
         if (d.ble !== undefined) { $('#val-ble').textContent = d.ble; $('#acc-ble-count').textContent = d.ble; }
         if (d.ch !== undefined) $('#val-ch').textContent = d.ch;
-        if (d.ver) versionBadge.textContent = d.ver;
+
       }
 
       async function sendCommand(cmd, silent) {
