@@ -117,7 +117,7 @@
       height: 100%;
     }
 
-    .left-column > * {
+    .left-column>* {
       min-height: 0;
     }
 
@@ -1254,8 +1254,8 @@
             return;
           }
         } else {
-           appendLine('Selected driver not supported on this browser.', 'error');
-           return;
+          appendLine('Selected driver not supported on this browser.', 'error');
+          return;
         }
 
         try {
@@ -1272,7 +1272,7 @@
             appendLine('CONNECTION CANCELLED: You must select a device from the popup.', 'error');
             appendLine('NOTE: If no popup appeared, your browser (like WhatsApp in-app browser) blocks USB selection. Please open this page in standard Google Chrome.', 'info');
           } else {
-            appendLine('CONNECTION FAILED: ' + err.message, 'error'); 
+            appendLine('CONNECTION FAILED: ' + err.message, 'error');
           }
         }
       }
@@ -1308,32 +1308,8 @@
           // Filter out standard headers
           if (line.includes('ESP32 Marauder') || line.match(/^\s*v\d+\.\d+/)) { continue; }
           if (line.includes('By: justcallmekoko')) {
-            const skull = [
-              "@@@@@@",
-              "@@@@@@@@",
-              "@@@@@@@@@@@",
-              "@@@@@@  @@@@@@",
-              "@@@@@@@      @@@@@@@",
-              "@@@@@@            @@@@@@",
-              "@@@@@@@                @@@@@@@",
-              "@@@@@@                      @@@@@@",
-              "@@@@@@@              @@@@@@@@@@@@@@@@",
-              "@@@@@                 @@@@@@@@@@@@@@@",
-              "@@@@@                   @@@@@@@",
-              "@@@@@                      @@@@@@",
-              "@@@@@@                       @@@@@@@",
-              "@@@@@@                        @@@@@@@@@@@@",
-              "@@@@@@@                          @@@@@@",
-              "@@@@@@                     @@@@@@",
-              "@@@@@@@                @@@@@@",
-              "@@@@@@           @@@@@@",
-              "@@@@@@@      @@@@@@",
-              "@@@@@@ @@@@@@",
-              "@@@@@@@@@",
-              "@@@@@@",
-              "@@@@"
-            ];
-            for (const l of skull) { appendLine(l, 'info'); }
+            const svgSkull = `<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="width:120px; height:120px; margin: 15px 0;"><path d="M0 0h16v12h-2v4H2v-4H0V0zm2 2v8h2v4h1v-2h2v2h2v-2h2v2h1v-4h2V2H2zm6 6l1.414 1.414-.707.707L8 9.414l-.707.707-.707-.707L8 8zm2-3h2v2h-2V5zM4 5h2v2H4V5z" fill-rule="evenodd" /></svg>`;
+            appendHTML(svgSkull, 'info');
             appendLine('--------------------------------', 'info');
             appendLine('DMATRIX OS', 'info');
             appendLine('v1.0.0', 'info');
@@ -1398,18 +1374,18 @@
           if (d.mode !== 0) $('#card-mode').style.color = '#fff';
           else $('#card-mode').style.color = 'inherit';
         }
-        if (d.aps !== undefined) { 
-          $('#val-aps').textContent = d.aps; $('#acc-aps-count').textContent = d.aps; 
+        if (d.aps !== undefined) {
+          $('#val-aps').textContent = d.aps; $('#acc-aps-count').textContent = d.aps;
           if (lastAps !== -1 && d.aps !== lastAps) changed = true;
           lastAps = d.aps;
         }
-        if (d.stas !== undefined) { 
-          $('#val-sta').textContent = d.stas; $('#acc-sta-count').textContent = d.stas; 
+        if (d.stas !== undefined) {
+          $('#val-sta').textContent = d.stas; $('#acc-sta-count').textContent = d.stas;
           if (lastStas !== -1 && d.stas !== lastStas) changed = true;
           lastStas = d.stas;
         }
-        if (d.ble !== undefined) { 
-          $('#val-ble').textContent = d.ble; $('#acc-ble-count').textContent = d.ble; 
+        if (d.ble !== undefined) {
+          $('#val-ble').textContent = d.ble; $('#acc-ble-count').textContent = d.ble;
           if (lastBle !== -1 && d.ble !== lastBle) changed = true;
           lastBle = d.ble;
         }
@@ -1432,6 +1408,17 @@
         const div = document.createElement('div');
         div.className = 'line' + (cls ? ' ' + cls : '');
         div.textContent = text;
+        terminalBody.appendChild(div);
+        lines++;
+        lineCountEl.textContent = lines;
+        while (terminalBody.children.length > 2000) terminalBody.removeChild(terminalBody.firstChild);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      }
+
+      function appendHTML(html, cls) {
+        const div = document.createElement('div');
+        div.className = 'line' + (cls ? ' ' + cls : '');
+        div.innerHTML = html;
         terminalBody.appendChild(div);
         lines++;
         lineCountEl.textContent = lines;
