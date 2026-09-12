@@ -1354,7 +1354,7 @@
           if (/^#?(status|list -[acb])$/.test(line)) continue;
 
           // Filter out original Marauder ASCII art (lines containing only ASCII art characters)
-          if (line.length > 0 && /^[ \/_|\\.'-]+$/.test(line)) { continue; }
+          if (line.length > 0 && /^[ \/_|\\.'@-]+$/.test(line)) { continue; }
           // Filter out standard headers
           if (line.includes('ESP32 Marauder') || line.match(/^\s*v\d+\.\d+/)) { continue; }
           if (line.includes('By: justcallmekoko')) {
