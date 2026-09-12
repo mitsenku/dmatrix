@@ -1244,7 +1244,14 @@
           uptimeInterval = setInterval(updateUptime, 1000);
           statusInterval = setInterval(() => { if (isConnected) sendCommand('status', true); }, 5000);
           setTimeout(() => sendCommand('status', true), 1000);
-        } catch (err) { appendLine('CONNECTION FAILED: ' + err.message, 'error'); }
+        } catch (err) {
+          if (err.message.includes('No port selected')) {
+            appendLine('CONNECTION CANCELLED: You must select a device from the popup.', 'error');
+            appendLine('NOTE: If no popup appeared, your browser (like WhatsApp in-app browser) blocks USB selection. Please open this page in standard Google Chrome.', 'info');
+          } else {
+            appendLine('CONNECTION FAILED: ' + err.message, 'error'); 
+          }
+        }
       }
 
       async function disconnect() {
