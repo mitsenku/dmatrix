@@ -108,7 +108,7 @@
       flex-direction: column;
       gap: 12px;
       min-width: 0;
-      height: 600px;
+      height: 520px;
     }
 
     /* ── CONNECTION BAR ── */
@@ -230,8 +230,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      flex: 2;
-      flex-basis: 0;
+      flex-shrink: 0;
     }
 
     .tft-menu-header {
@@ -276,8 +275,6 @@
       gap: 4px;
       overflow-y: auto;
       background: var(--bg);
-      flex: 1;
-      min-height: 0;
     }
 
     .tft-menu-item {
@@ -336,7 +333,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 600px;
+      height: 520px;
     }
 
     .terminal-header {
@@ -448,9 +445,8 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      flex: 1;
-      flex-basis: 0;
-      overflow-y: auto;
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
     .targets-panel>.panel-title {
@@ -651,12 +647,10 @@
         flex: 1;
         min-height: 0;
         gap: 8px;
+        overflow-y: auto;
       }
 
-      .tft-menu-panel, .targets-panel {
-        flex: 1;
-        flex-basis: 0;
-      }
+
 
 
 
