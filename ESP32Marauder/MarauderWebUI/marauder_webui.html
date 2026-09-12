@@ -899,6 +899,7 @@
           <span class="title">TERMINAL</span>
           <div class="spacer"></div>
           <span class="line-count" id="line-count">0</span>
+          <button class="btn" id="stop-btn" style="padding: 6px 12px; font-size: 0.7rem; color: #ff4444;">Stop All</button>
           <button class="btn" id="clear-btn" style="padding: 6px 12px; font-size: 0.7rem;">Clear</button>
         </div>
         <div class="terminal-body" id="terminal-body"></div>
@@ -919,7 +920,7 @@
       const connectBtn = $('#connect-btn'), statusDot = $('#status-dot'), statusText = $('#status-text');
       const baudSelect = $('#baud-select'), versionBadge = $('#version-badge');
       const terminalBody = $('#terminal-body'), cmdInput = $('#cmd-input');
-      const sendBtn = $('#send-btn'), clearBtn = $('#clear-btn');
+      const sendBtn = $('#send-btn'), clearBtn = $('#clear-btn'), stopBtn = $('#stop-btn');
       const lineCountEl = $('#line-count'), refreshBtn = $('#refresh-targets-btn');
 
       let isConnected = false, lines = 0;
@@ -1305,6 +1306,7 @@
         else if (e.key === 'ArrowDown') { e.preventDefault(); if (historyIndex > 0) { historyIndex--; cmdInput.value = commandHistory[historyIndex]; } else { historyIndex = -1; cmdInput.value = ''; } }
       });
       clearBtn.addEventListener('click', () => { terminalBody.innerHTML = ''; lines = 0; lineCountEl.textContent = '0'; });
+      stopBtn.addEventListener('click', () => sendCommand('stopscan'));
       refreshBtn.addEventListener('click', () => { 
         $('#ap-table-body').innerHTML = ''; 
         $('#sta-table-body').innerHTML = ''; 
