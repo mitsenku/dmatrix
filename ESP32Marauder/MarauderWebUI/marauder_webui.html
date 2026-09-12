@@ -651,13 +651,32 @@
       /* Game Console Layout */
       .main-content-row {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         gap: 8px;
         align-items: stretch;
+        height: auto;
+      }
+
+      .terminal-panel {
+        order: 1;
+        height: 45vh;
+        flex: none;
       }
 
       .left-column {
-        gap: 8px;
+        display: contents;
+      }
+
+      .tft-menu-panel {
+        order: 2;
+        height: 45vh;
+        flex: none;
+      }
+
+      .targets-panel {
+        order: 3;
+        height: auto;
+        flex: none;
       }
 
       /* Scale Down Menu */
@@ -678,7 +697,7 @@
       .tft-menu-body {
         padding: 4px;
         gap: 4px;
-        max-height: 40vh;
+        max-height: none;
         overflow-y: auto;
       }
 
