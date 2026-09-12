@@ -1388,17 +1388,36 @@
         $('#' + tbodyId).appendChild(tr);
       }
 
+      let lastAps = -1, lastStas = -1, lastBle = -1;
+
       function updateDashboard(d) {
+        let changed = false;
+
         if (d.mode !== undefined) {
           $('#val-mode').textContent = d.mode_name || SCAN_MODES[d.mode] || 'MODE ' + d.mode;
           if (d.mode !== 0) $('#card-mode').style.color = '#fff';
           else $('#card-mode').style.color = 'inherit';
         }
-        if (d.aps !== undefined) { $('#val-aps').textContent = d.aps; $('#acc-aps-count').textContent = d.aps; }
-        if (d.stas !== undefined) { $('#val-sta').textContent = d.stas; $('#acc-sta-count').textContent = d.stas; }
-        if (d.ble !== undefined) { $('#val-ble').textContent = d.ble; $('#acc-ble-count').textContent = d.ble; }
+        if (d.aps !== undefined) { 
+          $('#val-aps').textContent = d.aps; $('#acc-aps-count').textContent = d.aps; 
+          if (lastAps !== -1 && d.aps !== lastAps) changed = true;
+          lastAps = d.aps;
+        }
+        if (d.stas !== undefined) { 
+          $('#val-sta').textContent = d.stas; $('#acc-sta-count').textContent = d.stas; 
+          if (lastStas !== -1 && d.stas !== lastStas) changed = true;
+          lastStas = d.stas;
+        }
+        if (d.ble !== undefined) { 
+          $('#val-ble').textContent = d.ble; $('#acc-ble-count').textContent = d.ble; 
+          if (lastBle !== -1 && d.ble !== lastBle) changed = true;
+          lastBle = d.ble;
+        }
         if (d.ch !== undefined) $('#val-ch').textContent = d.ch;
 
+        if (changed) {
+          refreshTargets(true);
+        }
       }
 
       async function sendCommand(cmd, silent) {
@@ -1447,16 +1466,18 @@
         else if (e.key === 'ArrowUp') { e.preventDefault(); if (commandHistory.length) { historyIndex = Math.min(historyIndex + 1, commandHistory.length - 1); cmdInput.value = commandHistory[historyIndex]; } }
         else if (e.key === 'ArrowDown') { e.preventDefault(); if (historyIndex > 0) { historyIndex--; cmdInput.value = commandHistory[historyIndex]; } else { historyIndex = -1; cmdInput.value = ''; } }
       });
-      clearBtn.addEventListener('click', () => { terminalBody.innerHTML = ''; lines = 0; lineCountEl.textContent = '0'; });
-      stopBtn.addEventListener('click', () => sendCommand('stopscan'));
-      refreshBtn.addEventListener('click', () => {
+      function refreshTargets(silent = false) {
         $('#ap-table-body').innerHTML = '';
         $('#sta-table-body').innerHTML = '';
         $('#ble-table-body').innerHTML = '';
-        sendCommand('list -a');
-        setTimeout(() => sendCommand('list -c'), 500);
-        setTimeout(() => sendCommand('list -b'), 1000);
-      });
+        sendCommand('list -a', silent);
+        setTimeout(() => sendCommand('list -c', silent), 500);
+        setTimeout(() => sendCommand('list -b', silent), 1000);
+      }
+
+      clearBtn.addEventListener('click', () => { terminalBody.innerHTML = ''; lines = 0; lineCountEl.textContent = '0'; });
+      stopBtn.addEventListener('click', () => sendCommand('stopscan'));
+      refreshBtn.addEventListener('click', () => refreshTargets(false));
       document.querySelectorAll('.accordion-header').forEach(h => h.addEventListener('click', () => { h.classList.toggle('open'); h.nextElementSibling.classList.toggle('open'); }));
       window.addEventListener('beforeunload', () => { if (isConnected) disconnect(); });
 
