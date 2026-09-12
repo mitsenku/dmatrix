@@ -117,6 +117,10 @@
       height: 100%;
     }
 
+    .left-column > * {
+      min-height: 0;
+    }
+
     /* ── CONNECTION BAR ── */
     .conn-bar {
       display: flex;
@@ -279,8 +283,9 @@
       flex-direction: column;
       gap: 2px;
       overflow-y: auto;
-      background: var(--bg);
-      flex: 1;
+      background: var(--white);
+      flex: 1 1 0%;
+      height: 0;
     }
 
     .tft-menu-item {
@@ -292,7 +297,7 @@
       border: var(--border-thin);
       cursor: pointer;
       transition: background 0.1s;
-      flex: 1;
+      flex: 0 0 calc((100% - 16px) / 5);
     }
 
     .tft-menu-item:hover {
@@ -651,13 +656,32 @@
       /* Game Console Layout */
       .main-content-row {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         gap: 8px;
         align-items: stretch;
+        height: auto;
+      }
+
+      .terminal-panel {
+        order: 1;
+        height: 45vh;
+        flex: none;
       }
 
       .left-column {
-        gap: 8px;
+        display: contents;
+      }
+
+      .tft-menu-panel {
+        order: 2;
+        height: 45vh;
+        flex: none;
+      }
+
+      .targets-panel {
+        order: 3;
+        height: auto;
+        flex: none;
       }
 
       /* Scale Down Menu */
@@ -678,12 +702,13 @@
       .tft-menu-body {
         padding: 4px;
         gap: 4px;
-        max-height: 40vh;
+        max-height: none;
         overflow-y: auto;
       }
 
       .tft-menu-item {
         padding: 8px;
+        flex: 0 0 calc((100% - 24px) / 5);
       }
 
       .tft-menu-item svg {
