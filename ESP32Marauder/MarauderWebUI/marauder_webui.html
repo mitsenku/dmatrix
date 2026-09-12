@@ -292,6 +292,7 @@
       border: var(--border-thin);
       cursor: pointer;
       transition: background 0.1s;
+      flex: 1;
     }
 
     .tft-menu-item:hover {
@@ -452,6 +453,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      gap: 8px;
     }
 
     .targets-panel>.panel-title {
@@ -459,17 +461,19 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 2px;
-      margin-bottom: 12px;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .accordion {
-      margin-bottom: 8px;
       border: var(--border-thin);
       background: var(--white);
       box-shadow: var(--shadow-sm);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .accordion-header {
@@ -482,6 +486,7 @@
       font-size: 0.8rem;
       cursor: pointer;
       background: #eee;
+      flex: 1;
     }
 
     .accordion-header:active {
@@ -500,6 +505,7 @@
 
     .accordion-header.open {
       border-bottom: var(--border-thin);
+      flex: 0 0 auto;
     }
 
     .accordion-header .acc-count {
@@ -514,10 +520,14 @@
       overflow: hidden;
       transition: max-height 0.3s ease;
       background: var(--white);
+      display: flex;
+      flex-direction: column;
     }
 
     .accordion-body.open {
       max-height: 600px;
+      flex: 1;
+      overflow-y: auto;
     }
 
     .target-table {
