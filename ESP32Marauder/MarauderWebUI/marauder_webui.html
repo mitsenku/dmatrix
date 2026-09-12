@@ -286,6 +286,7 @@
       background: var(--white);
       flex: 1 1 0%;
       height: 0;
+      min-height: 0;
     }
 
     .tft-menu-item {
@@ -845,6 +846,11 @@
         <h1>dmatrix</h1>
       </div>
       <div class="spacer"></div>
+      <select class="baud-select" id="driver-select" style="margin-right:4px;">
+        <option value="auto">Auto Driver</option>
+        <option value="webserial">Web Serial</option>
+        <option value="webusb">WebUSB</option>
+      </select>
       <select class="baud-select" id="baud-select">
         <option value="115200" selected>115200 Baud</option>
         <option value="9600">9600 Baud</option>
@@ -1226,17 +1232,34 @@
       async function connect() {
         if (isConnected) { await disconnect(); return; }
 
-        if ('serial' in navigator) {
+        const driverPref = document.getElementById('driver-select').value;
+        const hasSerial = 'serial' in navigator;
+        const hasUsb = 'usb' in navigator;
+
+        if (driverPref === 'webserial' && hasSerial) {
           activeSerial = new StandardSerial();
-        } else if ('usb' in navigator) {
+        } else if (driverPref === 'webusb' && hasUsb) {
           activeSerial = new WebUSBSerial();
+        } else if (driverPref === 'auto' || driverPref === 'webserial') {
+          // Auto logic: Use WebUSB on Android by default because Web Serial can be buggy, otherwise Web Serial
+          const isAndroid = /Android/i.test(navigator.userAgent);
+          if (isAndroid && hasUsb) {
+            activeSerial = new WebUSBSerial();
+          } else if (hasSerial) {
+            activeSerial = new StandardSerial();
+          } else if (hasUsb) {
+            activeSerial = new WebUSBSerial();
+          } else {
+            appendLine('No supported serial API found on this browser.', 'error');
+            return;
+          }
         } else {
-          appendLine('No supported serial API found on this browser.', 'error');
-          return;
+           appendLine('Selected driver not supported on this browser.', 'error');
+           return;
         }
 
         try {
-          await activeSerial.connect(parseInt(baudSelect.value));
+          await activeSerial.connect(parseInt(document.getElementById('baud-select').value));
           activeSerial.onData = (text) => processIncoming(text);
           isConnected = true; connectTime = Date.now();
           updateConnectionUI();
@@ -1280,8 +1303,43 @@
           // Prevent the background polling command from spamming the terminal
           if (line === 'status' || line === '#status') continue;
 
-          if (line.includes('ESP32 dmatrix') || line.includes('ESP32 Marauder')) { appendLine(line, 'info'); continue; }
-          if (line.match(/^\s*v\d+\.\d+/)) { appendLine(line, 'info'); continue; }
+          // Filter out original Marauder ASCII art (lines containing only ASCII art characters)
+          if (line.length > 0 && /^[ \/_|\\.'-]+$/.test(line)) { continue; }
+          // Filter out standard headers
+          if (line.includes('ESP32 Marauder') || line.match(/^\s*v\d+\.\d+/)) { continue; }
+          if (line.includes('By: justcallmekoko')) {
+            const skull = [
+              "@@@@@@",
+              "@@@@@@@@",
+              "@@@@@@@@@@@",
+              "@@@@@@  @@@@@@",
+              "@@@@@@@      @@@@@@@",
+              "@@@@@@            @@@@@@",
+              "@@@@@@@                @@@@@@@",
+              "@@@@@@                      @@@@@@",
+              "@@@@@@@              @@@@@@@@@@@@@@@@",
+              "@@@@@                 @@@@@@@@@@@@@@@",
+              "@@@@@                   @@@@@@@",
+              "@@@@@                      @@@@@@",
+              "@@@@@@                       @@@@@@@",
+              "@@@@@@                        @@@@@@@@@@@@",
+              "@@@@@@@                          @@@@@@",
+              "@@@@@@                     @@@@@@",
+              "@@@@@@@                @@@@@@",
+              "@@@@@@           @@@@@@",
+              "@@@@@@@      @@@@@@",
+              "@@@@@@ @@@@@@",
+              "@@@@@@@@@",
+              "@@@@@@",
+              "@@@@"
+            ];
+            for (const l of skull) { appendLine(l, 'info'); }
+            appendLine('--------------------------------', 'info');
+            appendLine('DMATRIX OS', 'info');
+            appendLine('v1.0.0', 'info');
+            appendLine('--------------------------------', 'info');
+            continue;
+          }
 
           // Parse AP List: [0][CH:1] MyWiFiNetwork -50
           let apMatch = line.match(/^\[(\d+)\]\[CH:(\d+)\]\s+(.+?)\s+(-\d+)(?:\s+\(selected\))?$/);
